@@ -4,17 +4,17 @@ import { useNavigate } from "react-router-dom";
 const Create = () => {
   const [title, setTitle] = useState('');
   const [body, setBody] = useState('');
-  const [author, setAuthor] = useState('mario');
+  const [subject, setSubject] = useState('Theory of Computation');
   const history = useNavigate();
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const blog = { title, body, author };
+    const note = { title, body, subject };
 
-    fetch('http://localhost:8000/blogs/', {
+    fetch('http://localhost:8000/notes/', {
       method: 'POST',
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(blog)
+      body: JSON.stringify(note)
     }).then(() => {
       // history.go(-1);
       history('/');
@@ -23,30 +23,32 @@ const Create = () => {
 
   return (
     <div className="create">
-      <h2>Add a New Blog</h2>
+      <h2>Add a New note</h2>
       <form onSubmit={handleSubmit}>
-        <label>Blog title:</label>
+        <label>note title:</label>
         <input 
           type="text" 
           required 
           value={title}
           onChange={(e) => setTitle(e.target.value)}
         />
-        <label>Blog body:</label>
+        <label>note body:</label>
         <textarea
           required
           value={body}
           onChange={(e) => setBody(e.target.value)}
         ></textarea>
-        <label>Blog author:</label>
+        <label>note subjectr:</label>
         <select
-          value={author}
-          onChange={(e) => setAuthor(e.target.value)}
+          value={subject}
+          onChange={(e) => setSubject(e.target.value)}
         >
-          <option value="mario">mario</option>
-          <option value="yoshi">yoshi</option>
+          <option value="Theory of Computation">Theory of Computation</option>
+          <option value="Algorithm">Algorithm</option>
+          <option value="Signals and data Communication">Signals and data Communication</option>
+          <option value="Computer Architecture and Organisation">Computer Architecture and Organisation</option>
         </select>
-        <button>Add Blog</button>
+        <button>Add note</button>
       </form>
     </div>
   );
